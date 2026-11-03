@@ -82,7 +82,7 @@ function Set-MissingGitDefaults([string]$Git) {
 }
 
 function Get-CourseFolder {
-    # Reuse the guidebook location when it already exists; otherwise stay inside the user account.
+    # Reuse an existing course folder; otherwise stay inside the user account.
     if (Test-Path -LiteralPath 'C:\webdev' -PathType Container) { return 'C:\webdev' }
     return Join-Path $env:USERPROFILE 'webdev'
 }
@@ -100,14 +100,14 @@ function Assert-CourseFolder([string]$Folder) {
 function Install-CourseGit {
     $winget = Get-Command winget.exe -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
     if (-not $winget) {
-        throw 'Windows App Installer (winget) is unavailable. Install Git using guidebook pages 14 to 18, then run this helper again. Do not install another package manager.'
+        throw 'Windows App Installer (winget) is unavailable. Open Setup Help and follow Install Git manually on Windows, then run this helper again. Do not install another package manager.'
     }
     Write-Host 'Installing Git. Review any agreement or Windows permission prompt before continuing.'
     # The explicit package and source avoid ambiguous matches. Hash checks remain enabled.
     # Do not accept agreements on the student's behalf or change Windows execution policy.
     & $winget.Source install --id Git.Git --exact --source winget --silent --no-upgrade --custom '/o:EditorOption=VisualStudioCode /o:DefaultBranchOption=main' | Out-Host
     if ($LASTEXITCODE -ne 0) {
-        throw 'Git installation did not finish. See the message above. You can install Git using guidebook pages 14 to 18 and rerun this helper.'
+        throw 'Git installation did not finish. See the message above. Open Setup Help, follow Install Git manually on Windows, and rerun this helper.'
     }
 }
 

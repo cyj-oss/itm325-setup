@@ -1,6 +1,6 @@
 # ITM 325 Setup
 
-Get ready to use Claude Code inside Visual Studio Code. You will install the editor, run a course setup helper, and sign in to Claude.
+Get ready to use Claude Code inside Visual Studio Code. You will install the editor, run a setup helper, and sign in to Claude.
 
 **Choose your computer. Follow only that guide.**
 
@@ -19,23 +19,31 @@ You can pause after each step. Finish when all three steps work on your computer
 
 ## Before you start
 
-- Have your Claude account ready. Follow **guidebook pages 12 to 14** for account and subscription preparation. Use the account approved for this course. The free Claude plan does not include Claude Code access. Check your account before paying for anything.
+- Prepare your Claude account using the short instructions below.
 - Use a computer on which you are allowed to install programs. Keep it connected to power and the internet.
 - Save your open work. You will reopen VS Code after setup.
-- You do not need a GitHub account to read these public guides or use the helper.
+- You do not need a GitHub account to read these guides or use the helper.
 
-Page references use the **Page X of 104** numbers printed in the guidebook body. The table of contents may use different numbers. On GitHub, use the copy button on a code block to copy a command. Paste commands only into the terminal named in your operating system guide.
+## Prepare your Claude account
 
-## What the helper does
+1. Open [claude.ai](https://claude.ai/) and sign in, or create an account if you do not have one.
+2. Check your account's plan in its settings. A **Claude Pro or higher subscription**, or access provided through an eligible school or organization account, is needed for the subscription sign-in used in this lesson. The free Claude plan does not include Claude Code.
+3. If you already have access, use that same account during setup. If you need a personal subscription, review the [current plans](https://claude.com/pricing) and complete the purchase yourself. Check any course-provided access before buying a second subscription.
 
-It checks for existing tools, installs missing course tools from their official installer or the named Windows package source, prepares the command location, and checks that the programs start. It creates a `webdev` course folder if needed. Existing project files stay in place.
+**Ready to begin:** You can sign in to the account you will use for class and have confirmed its Claude Code access. The setup helper does not buy a subscription or sign in for you.
 
-On Windows, it also prepares Git for the later course work. On Mac, this lesson does not require installing Git, Homebrew, or Xcode. The helper does not buy a subscription, sign in, or send a Claude prompt. You complete those account and response checks yourself in Step 3.
+## How to follow the guides
 
-**Need help?** Start with [Troubleshooting](TROUBLESHOOTING.md). Keep the error message and the last completed step.
+Use the copy button on a code block to copy the entire command. Paste it into the terminal named in your Windows or Mac guide, then press Enter or Return. You do not need to type the command by hand or understand every symbol yet.
 
-## For the instructor
+Each step tells you what to do and what success looks like. If a step stops with an error, use [Setup Help](TROUBLESHOOTING.md) before continuing.
 
-This is the initial setup-helper version. Review the [instructor notes and pilot checklist](INSTRUCTOR.md) before assigning it to the class. A successful code check does not replace trying a first installation on Windows and Mac.
+## What gets installed
 
-[Official Claude Code setup](https://code.claude.com/docs/en/setup) · [Official VS Code downloads](https://code.visualstudio.com/download)
+- **VS Code** is the editor where you open and review your project files.
+- **Claude Code** is the AI coding tool you will use inside the VS Code terminal.
+- **Git** is installed on Windows for the course's later version-control work. Mac Git setup is not needed for this first lesson.
+
+The helper checks for existing tools, keeps working installations, and creates a `webdev` course folder if needed. Existing project files stay in place. Your final check is a real response from Claude inside VS Code.
+
+[Need help?](TROUBLESHOOTING.md) · [Official VS Code downloads](https://code.visualstudio.com/download) · [Official Claude Code setup](https://code.claude.com/docs/en/setup)

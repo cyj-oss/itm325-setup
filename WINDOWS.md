@@ -2,11 +2,9 @@
 
 [Back to computer selection](README.md)
 
-Follow these three steps in order. You will finish with Claude Code responding inside VS Code. Prepare your course Claude account first using **guidebook pages 12 to 14**.
+Follow these three steps in order. You will finish with Claude Code responding inside VS Code. Before you begin, sign in at [claude.ai](https://claude.ai/) and confirm that your account has Claude Code access through a Pro or higher subscription or an eligible organization plan. Use that same account in Step 3. If you need account help, see [Prepare your Claude account](README.md#prepare-your-claude-account).
 
 ## Step 1 Install VS Code
-
-**Guidebook pages 27 to 28.**
 
 1. Open the [official VS Code download page](https://code.visualstudio.com/download).
 2. Choose the Windows **User Installer** for your computer. Most PCs use x64. A Windows ARM PC needs Arm64. If you are unsure, open Windows **Settings > System > About** and look at **System type**.
@@ -15,18 +13,7 @@ Follow these three steps in order. You will finish with Claude Code responding i
 
 **Check before moving on:** VS Code opens to its editor or welcome screen. This is Visual Studio Code, not Visual Studio.
 
-<details>
-<summary>See the guidebook installation page</summary>
-
-![Guidebook page 28 showing VS Code installation](guidebook-page-28.png)
-
-The current installer may show extra optional features. Follow the instructions above when a screen differs.
-
-</details>
-
 ## Step 2 Set up the course tools
-
-**Guidebook pages 14 to 20 and 23.** The helper handles the installation and command-location steps in those pages.
 
 1. Open the Windows Start menu. Search for **Windows PowerShell** and open it normally. Choose the entry **without x86**. Do not choose **Run as administrator**.
 2. Copy the entire command below, paste it into PowerShell, and press **Enter**.
@@ -51,8 +38,6 @@ If you see **SETUP STOPPED**, do not continue yet. Read the short reason and use
 
 ## Step 3 Connect and test
 
-**Guidebook pages 23 to 24 and 30 to 31.**
-
 1. Save your work. Close **all VS Code windows** and the PowerShell window. Open VS Code again so it sees the new command locations.
 2. Choose **File > Open Folder**. Open the exact course folder printed by the helper. If VS Code asks about trusting the folder, confirm only after checking that it is your own course folder.
 3. Choose **Terminal > New Terminal**. The terminal should be **PowerShell**. If another terminal appears, use the dropdown beside the plus button to open PowerShell.
@@ -62,7 +47,7 @@ If you see **SETUP STOPPED**, do not continue yet. Read the short reason and use
 claude --version
 ```
 
-**Check:** A version number followed by **Claude Code** appears. Your number may differ from the guidebook. If the command is not recognized, stop and use [Troubleshooting](TROUBLESHOOTING.md).
+**Check:** A version number followed by **Claude Code** appears. The version number may change as the software updates. If the command is not recognized, stop and use [Troubleshooting](TROUBLESHOOTING.md).
 
 5. Start Claude Code.
 
@@ -80,12 +65,5 @@ Please reply with Ready for ITM 325. Do not create, edit, or delete any files. D
 **You are done when:** VS Code is open, your course folder is open, Claude is signed in, and Claude replies to your message. The reply may contain extra words. A version number alone does not confirm account access.
 
 To exit Claude, press **Ctrl+C twice**. Run ordinary terminal commands after leaving Claude, not in its message area.
-
-<details>
-<summary>See the guidebook page for using Claude inside VS Code</summary>
-
-![Guidebook page 31 showing the built-in terminal and Claude command](guidebook-page-31.png)
-
-</details>
 
 [Need help?](TROUBLESHOOTING.md) · [Back to start](README.md)
