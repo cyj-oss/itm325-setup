@@ -126,4 +126,6 @@ $out = @(Invoke-CourseSetup -CheckOnly 6>&1)
 Assert-True ((Result-Code $out) -eq 1) 'A conflicting claude command is rejected'
 
 Write-Host "`nAll $testCount Windows checks passed. No software was installed."
-Write-Host "Test artifacts: $testRoot"
+Write-Host "Test artifacts: $testRoot"# The fake commands deliberately set nonzero native exit codes in failure tests.
+# Do not let the CI shell treat that leftover test state as the suite result.
+$global:LASTEXITCODE = 0
