@@ -97,17 +97,38 @@ function Assert-CourseFolder([string]$Folder) {
     }
 }
 
-function Install-CourseGit {
+function Install-CourseGit([string]$LogDirectory) {
     $winget = Get-Command winget.exe -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
     if (-not $winget) {
         throw 'Windows App Installer (winget) is unavailable. Open Setup Help and follow Install Git manually on Windows, then run this helper again. Do not install another package manager.'
     }
-    Write-Host 'Installing Git. Review any agreement or Windows permission prompt before continuing.'
+    Write-Host 'Downloading and installing Git. This may take several minutes.'
+    Write-Host 'Review any Windows permission prompt before continuing.'
     # The explicit package and source avoid ambiguous matches. Hash checks remain enabled.
     # Do not accept agreements on the student's behalf or change Windows execution policy.
-    & $winget.Source install --id Git.Git --exact --source winget --silent --no-upgrade --custom '/o:EditorOption=VisualStudioCode /o:DefaultBranchOption=main' | Out-Host
-    if ($LASTEXITCODE -ne 0) {
-        throw 'Git installation did not finish. See the message above. Open Setup Help, follow Install Git manually on Windows, and rerun this helper.'
+    $installArguments = @('install', '--id', 'Git.Git', '--exact', '--source', 'winget', '--silent', '--no-upgrade', '--custom', '/o:EditorOption=VisualStudioCode /o:DefaultBranchOption=main')
+    $helpText = @(& $winget.Source install --help 2>&1) -join "`n"
+    if ($helpText -match '--output-locale\b') {
+        # Newer WinGet versions can translate their interface for this invocation only.
+        $installArguments += @('--output-locale', 'en-US')
+        & $winget.Source @installArguments | Out-Host
+        $installStatus = $LASTEXITCODE
+    } else {
+        # Older versions follow Windows' language. Keep those details in a local log
+        # and show English progress here. Never hide a prompt waiting for an answer.
+        $details = Join-Path $LogDirectory ('git-install-' + [guid]::NewGuid().ToString('N') + '.txt')
+        Write-Host "Git installation details: $details"
+        $installArguments += '--disable-interactivity'
+        $savedPreference = $ErrorActionPreference
+        try {
+            $ErrorActionPreference = 'Continue'
+            $LASTEXITCODE = 1
+            & $winget.Source @installArguments 2>&1 | Out-File -LiteralPath $details -Encoding UTF8
+            $installStatus = $LASTEXITCODE
+        } finally { $ErrorActionPreference = $savedPreference }
+    }
+    if ($installStatus -ne 0) {
+        throw "Git installation did not finish (exit code $installStatus). Open Setup Help, follow Install Git manually on Windows, and rerun this helper. If an agreement needs your review, complete it in the manual installer."
     }
 }
 
@@ -201,7 +222,7 @@ function Invoke-CourseSetup([switch]$CheckOnly) {
         New-Item -ItemType Directory -Path $scratch | Out-Null
 
         Write-Step '[2 of 4] Preparing Git'
-        if (-not $git) { Install-CourseGit; $git = Find-Git }
+        if (-not $git) { Install-CourseGit $logDirectory; $git = Find-Git }
         if (-not $git) { throw 'Git was not found after installation. Restart Windows if the installer requested it, then rerun the helper.' }
         $gitVersion = Get-ToolVersion $git
         if ($gitVersion -notmatch '^git version ') { throw 'The Git version check returned an unexpected result.' }

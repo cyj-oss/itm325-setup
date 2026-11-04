@@ -2,6 +2,8 @@
 
 Set up Claude Code inside Visual Studio Code. Follow the guide for your computer.
 
+You do not need to sign in to GitHub now. You will connect it in the lesson on uploading your project.
+
 | Your computer | Setup guide |
 | --- | --- |
 | Windows PC | **[Windows setup](WINDOWS.md)** |

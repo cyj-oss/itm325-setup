@@ -61,6 +61,40 @@ Assert-True ($script:gitWrites -contains 'init.defaultBranch=main') 'Missing bra
 function Broken-Git { $global:LASTEXITCODE = 128 }
 Assert-Throws { Set-MissingGitDefaults 'Broken-Git' } 'Git configuration errors stop setup'
 
+# Simulate localized WinGet output without downloading or installing Git.
+$script:wingetEnglishOption = $true
+$script:wingetExitStatus = 0
+$script:wingetArguments = @()
+$script:localizedOutput = [string][char]0xCC3E + [char]0xC74C + ' Git'
+function Fake-Winget {
+    if ($args -contains '--help') {
+        if ($script:wingetEnglishOption) { '--output-locale <language>' } else { '--disable-interactivity' }
+        Set-Variable -Name LASTEXITCODE -Value 0 -Scope 1
+        return
+    }
+    $script:wingetArguments = @($args)
+    if ($args -contains '--output-locale') { 'Git installation completed.' }
+    else { $script:localizedOutput }
+    Set-Variable -Name LASTEXITCODE -Value $script:wingetExitStatus -Scope 1
+}
+function Get-Command { [pscustomobject]@{ Source = 'Fake-Winget' } }
+try {
+    Install-CourseGit $testRoot
+    Assert-True ($script:wingetArguments -contains '--output-locale' -and $script:wingetArguments -contains 'en-US') 'Modern WinGet uses English for this command only'
+    Assert-True ($script:wingetArguments -notcontains '--disable-interactivity') 'Visible English agreement prompts remain available'
+    $script:wingetEnglishOption = $false
+    $out = @(Install-CourseGit $testRoot 6>&1)
+    Assert-True (($out -join "`n") -notmatch [regex]::Escape($script:localizedOutput)) 'Legacy WinGet does not print localized output on screen'
+    $detailLog = Get-ChildItem -LiteralPath $testRoot -Filter 'git-install-*.txt' | Select-Object -First 1
+    Assert-True ((Get-Content -LiteralPath $detailLog.FullName -Raw) -match [regex]::Escape($script:localizedOutput)) 'Original installer details remain available in a local log'
+    Assert-True ($script:wingetArguments -contains '--disable-interactivity') 'Legacy WinGet cannot wait for a hidden prompt'
+    Assert-True (($script:wingetArguments -join ' ') -notmatch '--accept-.*agreements|--ignore-security-hash') 'Agreements and installer hash checks are not bypassed'
+    $script:wingetExitStatus = 5
+    Assert-Throws { Install-CourseGit $testRoot } 'Legacy installer failure stops setup'
+    $script:wingetEnglishOption = $true
+    Assert-Throws { Install-CourseGit $testRoot } 'English installer failure stops setup'
+} finally { Remove-Item Function:\Get-Command }
+
 # Mock the operating system boundary to test orchestration without changing this machine.
 . $helperFile
 function Assert-WindowsEnvironment { }

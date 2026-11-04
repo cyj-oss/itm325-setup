@@ -15,6 +15,8 @@ Before starting, [prepare your Claude account](README.md#prepare-your-claude-acc
 
 **Check:** The VS Code editor or welcome screen opens.
 
+You do not need to sign in to GitHub now. You will connect it in the lesson on uploading your project.
+
 ## Step 2 Set up the course tools
 
 Run this step once for the course, even if Claude Code is already installed. The helper keeps working installations and prepares Git, command locations, and your course folder.
