@@ -1,5 +1,5 @@
 #!/bin/bash
-# Isolated function tests. No real downloads, installation, HOME changes, or profile edits.
+# Isolated tests. Child shells use a temporary home; the real user's files are untouched.
 set -e
 set -o pipefail
 test_dir=$(cd "$(dirname "$0")" && pwd)
@@ -63,5 +63,36 @@ pass 'A conflicting claude command is rejected'
 printf '#!/bin/bash\nexit 42\n' > "$fake_claude"
 must_fail run_install_steps "$fake_claude" "$profile" "$test_root/logs" "$project"
 pass 'An installed but broken Claude stops setup'
+
+# Exercise real macOS Zsh and Bash startup with a stale PATH, without installing Claude.
+test_user="$test_root/user with spaces"
+native_claude="$test_user/.local/bin/claude"
+mkdir -p "$test_user/.local/bin"
+printf '#!/bin/bash\nprintf "2.1.0 (Claude Code)\\n"\n' > "$native_claude"
+chmod +x "$native_claude"
+isolated_shell() {
+    local shell_path="$1"
+    shift
+    /usr/bin/env -i HOME="$test_user" ZDOTDIR="$test_user" \
+        PATH='/usr/bin:/bin:/usr/sbin:/sbin' SHELL="$shell_path" "$shell_path" "$@"
+}
+assert_equal "$(isolated_shell /bin/bash --noprofile --norc -c 'source "$1/setup-mac.sh"; find_claude' _ "$test_dir")" \
+    "$native_claude" 'An installed native Claude is found even when PATH is stale'
+printf 'export BASH_STUDENT_SETTING=keep\n' > "$test_user/.bashrc"
+isolated_shell /bin/bash --noprofile --norc -c \
+    'source "$1/setup-mac.sh"; ensure_shell_paths "$(choose_profile "$HOME" /bin/bash)" "$2/logs"' _ "$test_dir" "$test_root"
+grep -q 'BASH_STUDENT_SETTING=keep' "$test_user/.bashrc"
+pass 'Preparing non-login Bash preserves existing bashrc settings'
+assert_equal "$(isolated_shell /bin/zsh -d -i -c 'claude --version')" \
+    '2.1.0 (Claude Code)' 'A fresh Zsh terminal reads the saved command location'
+assert_equal "$(isolated_shell /bin/bash --login -c 'claude --version')" \
+    '2.1.0 (Claude Code)' 'A fresh login Bash terminal reads the saved command location'
+assert_equal "$(isolated_shell /bin/bash --noprofile -i -c 'claude --version' 2>/dev/null)" \
+    '2.1.0 (Claude Code)' 'A fresh non-login Bash terminal reads the saved command location'
+repair_command='if command -v claude >/dev/null 2>&1; then exit 1; fi; export PATH="$HOME/.local/bin:$PATH"; claude --version'
+assert_equal "$(isolated_shell /bin/bash --noprofile --norc -c "$repair_command")" \
+    '2.1.0 (Claude Code)' 'The guide quick fix repairs a stale Bash session'
+assert_equal "$(isolated_shell /bin/zsh -d -f -c "$repair_command")" \
+    '2.1.0 (Claude Code)' 'The guide quick fix repairs a stale Zsh session'
 printf '\nAll %s Mac checks passed. No software was installed.\n' "$test_count"
 printf 'Test artifacts: %s\n' "$test_root"

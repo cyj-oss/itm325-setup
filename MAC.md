@@ -46,14 +46,28 @@ If you have already completed the course setup, start here.
 
 1. Save your work. Quit VS Code with **Command+Q** and close Terminal. Open VS Code again.
 2. Choose **File > Open Folder**. In the folder selection window, press **Command+Shift+G**, enter **`~/webdev`**, press Return, and open that folder. If VS Code asks about trusting the folder, confirm only after checking that it is your own course folder.
-3. Choose **Terminal > New Terminal**. Use **Zsh**, the standard Mac shell. If you normally use Bash instead, select Bash from the terminal dropdown.
+3. If VS Code restores an old terminal, close that terminal with its **trash can** button. Choose **Terminal > New Terminal**. Use **Zsh**, the standard Mac shell, or **Bash** if that is your usual Terminal shell.
 4. Run this command in that terminal.
 
 ```bash
 claude --version
 ```
 
-**Check:** A version number followed by **Claude Code** appears. If you see **command not found**, stop and use [Troubleshooting](TROUBLESHOOTING.md).
+**Check:** A version number followed by **Claude Code** appears. If you see **command not found**, use the quick fix below.
+
+<details>
+<summary>Quick fix: command not found</summary>
+
+After Step 2 shows **READY FOR STEP 3**, run these two lines in the same Zsh or Bash terminal. They add Claude's location to this terminal without reinstalling it.
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+claude --version
+```
+
+If a Claude Code version appears, continue at item 5. If it still fails or returns in a new terminal, use [Mac command help](TROUBLESHOOTING.md#mac-command-help).
+
+</details>
 
 5. Start Claude Code.
 

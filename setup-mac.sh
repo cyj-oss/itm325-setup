@@ -60,6 +60,17 @@ ensure_native_path() {
     printf '\n# ITM 325 Claude Code command location\n%s\n' "$path_line" >> "$profile" || return 1
 }
 
+ensure_shell_paths() {
+    local profile="$1" log_dir="$2"
+    ensure_native_path "$profile" "$log_dir" || return 1
+    # VS Code can start Bash as a login or a non-login interactive shell.
+    # Keep the existing login profile and also cover non-login Bash terminals.
+    case "$profile" in
+        "$HOME/.bash_profile"|"$HOME/.bash_login"|"$HOME/.profile")
+            ensure_native_path "$HOME/.bashrc" "$log_dir" || return 1 ;;
+    esac
+}
+
 assert_course_folder() {
     local folder="$1"
     if [ -L "$folder" ]; then fail 'The webdev folder is a link. Ask your instructor to choose a local course folder.'; return 1; fi
@@ -96,7 +107,7 @@ run_install_steps() {
 
     step '[3 of 4] Checking the command location'
     if [ "$claude" = "$HOME/.local/bin/claude" ]; then
-        ensure_native_path "$profile" "$log_dir" || { fail 'Could not save the command location. Ask your instructor.'; return 1; }
+        ensure_shell_paths "$profile" "$log_dir" || { fail 'Could not save the command location. Ask your instructor.'; return 1; }
     else
         printf 'Keeping your existing Claude installation and its command location.\n'
     fi
@@ -110,9 +121,11 @@ run_install_steps() {
     printf 'OK: Course folder: %s\n' "$folder"
     printf '\nREADY FOR STEP 3\n'
     printf 'Save your work, quit VS Code with Command Q, close Terminal, then reopen VS Code.\n'
+    printf 'Use the trash can to close any restored terminal before opening a new one.\n'
     printf 'Choose File > Open Folder. Press Command Shift G, enter ~/webdev, and open it.\n'
     printf 'Choose Terminal > New Terminal. Use Zsh or Bash, matching your normal Terminal shell.\n'
     printf 'Run: claude --version\nThen run: claude\n'
+    printf 'If claude is not found, use the quick fix in Step 3 of the Mac guide. Do not reinstall.\n'
     printf 'Follow Step 3 in the Mac guide to sign in and confirm a response.\n'
     printf 'This result verifies the installation, not your account access or a Claude response.\n'
     printf 'Local setup log: %s\n' "$SETUP_LOG"

@@ -248,9 +248,11 @@ function Invoke-CourseSetup([switch]$CheckOnly) {
         Write-Host "OK: Course folder: $folder"
         Write-Host "`nREADY FOR STEP 3" -ForegroundColor Green
         Write-Host 'Save any open work, close ALL VS Code and PowerShell windows, then reopen VS Code.'
+        Write-Host 'Use the trash can to close any restored terminal before opening a new one.'
         Write-Host "Choose File > Open Folder and select: $folder"
         Write-Host 'Choose Terminal > New Terminal. Use PowerShell. Run: claude --version'
         Write-Host 'Then run: claude'
+        Write-Host 'If claude is not recognized, use the quick fix in Step 3 of the Windows guide. Do not reinstall.'
         Write-Host 'Follow Step 3 in the Windows guide to sign in and confirm a response.'
         Write-Host 'This result verifies the installation, not your account access or a Claude response.'
         Write-Host "Local setup log: $log"

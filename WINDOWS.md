@@ -46,14 +46,28 @@ If you have already completed the course setup, start here.
 
 1. Save your work. Close **all VS Code windows** and the PowerShell window. Open VS Code again so it sees the new command locations.
 2. Choose **File > Open Folder**. Open the exact course folder printed by the helper. If VS Code asks about trusting the folder, confirm only after checking that it is your own course folder.
-3. Choose **Terminal > New Terminal**. The terminal should be **PowerShell**. If another terminal appears, use the dropdown beside the plus button to open PowerShell.
+3. If VS Code restores an old terminal, close that terminal with its **trash can** button. Choose **Terminal > New Terminal**, then select **PowerShell** from the dropdown beside the plus button if needed.
 4. Run this command in that terminal.
 
 ```powershell
 claude --version
 ```
 
-**Check:** A version number followed by **Claude Code** appears. If the command is not recognized, stop and use [Troubleshooting](TROUBLESHOOTING.md).
+**Check:** A version number followed by **Claude Code** appears. If the command is not recognized, use the quick fix below.
+
+<details>
+<summary>Quick fix: claude is not recognized</summary>
+
+After Step 2 shows **READY FOR STEP 3**, run these two lines in the same PowerShell terminal. They add Claude's location to this terminal without reinstalling it.
+
+```powershell
+$env:Path = "$env:USERPROFILE\.local\bin;" + $env:Path
+claude --version
+```
+
+If a Claude Code version appears, continue at item 5. If it still fails or returns in a new terminal, use [Windows command help](TROUBLESHOOTING.md#windows-command-help).
+
+</details>
 
 5. Start Claude Code.
 
