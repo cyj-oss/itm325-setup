@@ -12,10 +12,22 @@ fail() {
 
 step() { printf '\n%s\n' "$1"; }
 
+is_vscode_app() {
+    local app="$1" plist bundle_id executable
+    plist="$app/Contents/Info.plist"
+    [ -f "$plist" ] || return 1
+    bundle_id=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$plist" 2>/dev/null) || return 1
+    [ "$bundle_id" = 'com.microsoft.VSCode' ] || return 1
+    # Read the executable name from the app, rather than assuming Electron or Code.
+    executable=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleExecutable' "$plist" 2>/dev/null) || return 1
+    case "$executable" in ''|.|..|*/*) return 1 ;; esac
+    [ -f "$app/Contents/MacOS/$executable" ] && [ -x "$app/Contents/MacOS/$executable" ]
+}
+
 find_vscode() {
     local app
     for app in '/Applications/Visual Studio Code.app' "$HOME/Applications/Visual Studio Code.app"; do
-        if [ -x "$app/Contents/MacOS/Electron" ]; then printf '%s\n' "$app"; return 0; fi
+        if is_vscode_app "$app"; then printf '%s\n' "$app"; return 0; fi
     done
     return 1
 }
