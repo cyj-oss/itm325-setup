@@ -94,5 +94,61 @@ assert_equal "$(isolated_shell /bin/bash --noprofile --norc -c "$repair_command"
     '2.1.0 (Claude Code)' 'The guide quick fix repairs a stale Bash session'
 assert_equal "$(isolated_shell /bin/zsh -d -f -c "$repair_command")" \
     '2.1.0 (Claude Code)' 'The guide quick fix repairs a stale Zsh session'
+
+# Exercise actual macOS plist parsing against isolated app bundles.
+make_vscode_fixture() {
+    local app="$1" executable="$2" bundle_id="${3:-com.microsoft.VSCode}"
+    mkdir -p "$app/Contents/MacOS"
+    cat > "$app/Contents/Info.plist" <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>CFBundleIdentifier</key><string>$bundle_id</string>
+<key>CFBundleExecutable</key><string>$executable</string>
+</dict></plist>
+EOF
+    printf '#!/bin/bash\nexit 0\n' > "$app/Contents/MacOS/$executable"
+    chmod +x "$app/Contents/MacOS/$executable"
+}
+
+code_app="$test_root/Apps with spaces/Visual Studio Code.app"
+make_vscode_fixture "$code_app" Code
+is_vscode_app "$code_app"
+pass 'VS Code with a Code executable is detected'
+if [ -x "$code_app/Contents/MacOS/Electron" ]; then exit 1; fi
+pass 'Detection does not require a file named Electron'
+
+electron_app="$test_root/Older VS Code.app"
+make_vscode_fixture "$electron_app" Electron
+is_vscode_app "$electron_app"
+pass 'VS Code with an Electron executable is still detected'
+
+other_app="$test_root/Other editor.app"
+make_vscode_fixture "$other_app" Code com.example.other
+must_fail is_vscode_app "$other_app"
+pass 'An unrelated app is not accepted as VS Code'
+
+missing_app="$test_root/Missing executable.app"
+mkdir -p "$missing_app/Contents/MacOS"
+cp "$code_app/Contents/Info.plist" "$missing_app/Contents/Info.plist"
+must_fail is_vscode_app "$missing_app"
+pass 'An app with a missing executable is rejected'
+
+blocked_app="$test_root/Non executable.app"
+make_vscode_fixture "$blocked_app" Code
+chmod -x "$blocked_app/Contents/MacOS/Code"
+must_fail is_vscode_app "$blocked_app"
+pass 'An app with a non-executable file is rejected'
+
+must_fail is_vscode_app "$test_root/Not installed.app"
+pass 'An absent app is rejected'
+
+/usr/libexec/PlistBuddy -c 'Delete :CFBundleExecutable' "$missing_app/Contents/Info.plist"
+must_fail is_vscode_app "$missing_app"
+pass 'An app with missing executable metadata is rejected'
+/usr/libexec/PlistBuddy -c 'Add :CFBundleExecutable string ../Code' "$missing_app/Contents/Info.plist"
+must_fail is_vscode_app "$missing_app"
+pass 'Executable metadata cannot point outside the MacOS directory'
+
 printf '\nAll %s Mac checks passed. No software was installed.\n' "$test_count"
 printf 'Test artifacts: %s\n' "$test_root"
