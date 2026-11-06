@@ -45,7 +45,7 @@ If you see **SETUP STOPPED**, follow [Setup Help](TROUBLESHOOTING.md). Fix the i
 If you have already completed the course setup, start here.
 
 1. Save your work. Quit VS Code with **Command+Q** and close Terminal. Open VS Code again.
-2. Choose **File > Open Folder**. In the folder selection window, press **Command+Shift+G**, enter **`~/webdev`**, press Return, and open that folder. If VS Code asks about trusting the folder, confirm only after checking that it is your own course folder.
+2. Choose **File > Open Folder**. Browse to your **home folder** (the folder named after your Mac user account), select **webdev**, and click **Open**. If VS Code asks about trusting the folder, confirm only after checking that it is your own course folder.
 3. If VS Code restores an old terminal, close that terminal with its **trash can** button. Choose **Terminal > New Terminal**. Use **Zsh**, the standard Mac shell, or **Bash** if that is your usual Terminal shell.
 4. Run this command in that terminal.
 
