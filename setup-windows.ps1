@@ -82,9 +82,8 @@ function Set-MissingGitDefaults([string]$Git) {
 }
 
 function Get-CourseFolder {
-    # Reuse an existing course folder; otherwise stay inside the user account.
-    if (Test-Path -LiteralPath 'C:\webdev' -PathType Container) { return 'C:\webdev' }
-    return Join-Path $env:USERPROFILE 'webdev'
+    # Use the same Windows working folder as the course guidebook.
+    return 'C:\webdev'
 }
 
 function Assert-CourseFolder([string]$Folder) {
@@ -94,6 +93,20 @@ function Assert-CourseFolder([string]$Folder) {
         if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) {
             throw "The course folder is a shortcut or redirected folder: $Folder. Ask your instructor to choose a local project folder."
         }
+    }
+}
+
+function Initialize-CourseFolder([string]$Folder) {
+    Assert-CourseFolder $Folder
+    try {
+        if (-not (Test-Path -LiteralPath $Folder)) {
+            New-Item -ItemType Directory -Path $Folder -ErrorAction Stop | Out-Null
+        }
+        $probe = Join-Path $Folder ('.itm325-write-check-' + [guid]::NewGuid().ToString('N'))
+        try { [IO.File]::WriteAllText($probe, 'write check') }
+        finally { if (Test-Path -LiteralPath $probe -PathType Leaf) { Remove-Item -LiteralPath $probe -ErrorAction Stop } }
+    } catch {
+        throw "Could not create or write to $Folder. Contact your instructor or IT support. Keep using a normal PowerShell window; do not run this helper as administrator."
     }
 }
 
@@ -240,12 +253,13 @@ function Invoke-CourseSetup([switch]$CheckOnly) {
         Write-Host "OK: $claudeVersion"
 
         Write-Step '[4 of 4] Preparing your course folder'
-        Assert-CourseFolder $folder
-        if (-not (Test-Path -LiteralPath $folder)) { New-Item -ItemType Directory -Path $folder | Out-Null }
-        $probe = Join-Path $folder ('.itm325-write-check-' + [guid]::NewGuid().ToString('N'))
-        try { [IO.File]::WriteAllText($probe, 'write check') }
-        finally { if (Test-Path -LiteralPath $probe -PathType Leaf) { Remove-Item -LiteralPath $probe } }
+        Initialize-CourseFolder $folder
         Write-Host "OK: Course folder: $folder"
+        $previousFolder = Join-Path $env:USERPROFILE 'webdev'
+        if (Test-Path -LiteralPath $previousFolder -PathType Container) {
+            Write-Host "An earlier course folder also exists: $previousFolder"
+            Write-Host 'Existing files were not moved. Follow Already completed setup in the Windows guide before continuing with existing work.'
+        }
         Write-Host "`nREADY FOR STEP 3" -ForegroundColor Green
         Write-Host 'Save any open work, close ALL VS Code and PowerShell windows, then reopen VS Code.'
         Write-Host 'Use the trash can to close any restored terminal before opening a new one.'
