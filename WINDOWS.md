@@ -4,6 +4,8 @@
 
 Before starting, [prepare your Claude account](README.md#prepare-your-claude-account). This guide uses the **Claude Code terminal tool**; having the Claude desktop app does not confirm that the terminal tool is installed.
 
+**Already completed setup?** [Check your course folder](#already-completed-setup).
+
 ## Step 1 Install VS Code
 
 **Already installed?** Open your existing VS Code and continue to Step 2.
@@ -36,16 +38,14 @@ Run this step once for the course, even if Claude Code is already installed. The
 READY FOR STEP 3
 ```
 
-Keep the **Course folder:** location printed by the helper. It reuses `C:\webdev` if present; otherwise it creates `webdev` inside your Windows user folder.
+The helper creates `C:\webdev` on the C drive, or keeps it if it already exists. Check that the result shows **Course folder: C:\webdev**. Existing files are not moved or replaced.
 
 If you see **SETUP STOPPED**, follow [Setup Help](TROUBLESHOOTING.md). Fix the issue before rerunning Step 2. Restart first if the installer requests it.
 
 ## Step 3 Connect and test
 
-If you have already completed the course setup, start here.
-
 1. Save your work. Close **all VS Code windows** and the PowerShell window. Open VS Code again so it sees the new command locations.
-2. Choose **File > Open Folder**. Open the exact course folder printed by the helper. If VS Code asks about trusting the folder, confirm only after checking that it is your own course folder.
+2. Choose **File > Open Folder**. Open `C:\webdev`. If VS Code asks about trusting the folder, confirm only after checking that it is your own course folder.
 3. If VS Code restores an old terminal, close that terminal with its **trash can** button. Choose **Terminal > New Terminal**, then select **PowerShell** from the dropdown beside the plus button if needed.
 4. Run this command in that terminal.
 
@@ -85,5 +85,18 @@ Please reply with Ready for ITM 325. Do not create, edit, or delete any files. D
 **Done:** Claude replies inside VS Code. A version number alone does not confirm account access.
 
 To exit Claude, press **Ctrl+C twice**. Run ordinary terminal commands after leaving Claude, not in its message area.
+
+## Already completed setup
+
+You do not need to reinstall VS Code, Git, or Claude Code, or rerun Step 2. If your course folder is already `C:\webdev`, continue with Step 3.
+
+If it is `C:\Users\your-name\webdev`:
+
+1. Save your work and close VS Code and Claude Code.
+2. In **File Explorer**, enter `%USERPROFILE%` in the address bar and press Enter. Select the entire **webdev** folder and press **Ctrl+C**.
+3. Enter `C:\` in the address bar and press Enter, then press **Ctrl+V**. Copy the folder itself so all project files, including hidden files, stay together. If `C:\webdev` already exists, do not merge or replace folders; ask your instructor before combining any work.
+4. In VS Code, choose **File > Open Folder > C:\webdev**. Confirm your files are there, then follow Step 3 using this folder. Keep the original folder as a backup.
+
+If Windows blocks the copy, contact your instructor or IT support.
 
 [Need help?](TROUBLESHOOTING.md) · [Back to start](README.md)
