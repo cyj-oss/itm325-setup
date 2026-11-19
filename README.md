@@ -22,6 +22,10 @@ Follow **one guide**, through **Step 3**.
 
 Sign in at [claude.ai](https://claude.ai/) using an account with **Claude Code access**, such as **Claude Pro** or eligible school access. Check course-provided access before purchasing a [plan](https://claude.com/pricing). Use this same account in Step 3.
 
+**From Lesson 2.2?** Once your account is ready, continue with the plan and access check in the book.
+
+[![Return to book — Lesson 2.2, Step 2](https://raw.githubusercontent.com/cyj-oss/itm325-vibecoding/main/return-to-book.svg)](https://cyj-oss.github.io/itm325-vibecoding/#lesson=2.2&step=1)
+
 <details>
 <summary>Already have VS Code or the Claude app?</summary>
 
