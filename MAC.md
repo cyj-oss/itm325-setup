@@ -1,89 +1,115 @@
 # Mac Setup
 
-[Back to start](README.md)
+[Choose a different computer](README.md)
 
-Before starting, [prepare your Claude account](README.md#prepare-your-claude-account). This guide uses the **Claude Code terminal tool**; having the Claude desktop app does not confirm that the terminal tool is installed.
+**Finish all 3 steps. Stop when Claude replies inside VS Code.**
+
+Have your [Claude account](README.md#prepare-your-claude-account) ready. **GitHub sign-in comes later.**
 
 ## Step 1 Install VS Code
 
-**Already installed?** Open VS Code from Applications and continue to Step 2.
+**Where: Your browser and Applications folder**
 
-1. Open the [VS Code download page](https://code.visualstudio.com/download).
-2. Choose **Mac**. The **Universal** download works on both Apple silicon and Intel Macs.
-3. Open the downloaded file. With the current `.dmg` installer, drag **Visual Studio Code.app** into **Applications**. If you downloaded a ZIP archive, expand it and move the app into Applications.
-4. Open **Visual Studio Code** from Applications.
+1. Open the [VS Code download page](https://code.visualstudio.com/download). Choose **Mac → Universal**.
+2. Open the download and drag **Visual Studio Code.app** into **Applications**. If the download is a ZIP, expand it first, then move the app.
+3. Open **Visual Studio Code from Applications**.
 
-**Check:** The VS Code editor or welcome screen opens from Applications.
+**Already installed?** Open your existing VS Code from Applications.
 
-You do not need to sign in to GitHub now. You will connect it in the lesson on uploading your project.
+> **CHECK 1 — VS Code opens from Applications. Continue to Step 2.**
 
 ## Step 2 Set up the course tools
 
-Run this step once for the course, even if Claude Code is already installed. The helper keeps working installations and prepares the command location and your course folder.
+**Where: The Mac Terminal app**
 
-1. Press **Command+Space**, type **Terminal**, and press Return.
-2. Copy the entire command below, paste it into Terminal, and press **Return**.
+1. Press **Command+Space**, type **Terminal**, and press **Return**.
+2. Paste this entire command into Terminal. Press **Return**.
 
 ```bash
 course_setup="$(/usr/bin/mktemp /tmp/itm325-setup.XXXXXX)" && /usr/bin/curl --fail --show-error --location --proto '=https' https://raw.githubusercontent.com/cyj-oss/itm325-setup/main/setup-mac.sh --output "$course_setup" && /bin/bash "$course_setup"
 ```
 
-3. Read the summary, type **Y**, and press Return. Leave the window open. The helper does not need `sudo` or your Mac password; stop and ask your instructor if a password is requested.
+3. Read the summary. Type **Y**, press **Return**, and wait. No Mac password is needed; ask your instructor if one is requested.
 
-**Check:** Wait for:
+> **CHECK 2 — READY FOR STEP 3 appears. Continue to Step 3.**
+>
+> Look for this message; do not type it. Setup creates **webdev** inside your **Mac home folder**.
 
-```text
-READY FOR STEP 3
-```
+**If you see SETUP STOPPED:** stop here and open [Setup Help](TROUBLESHOOTING.md).
 
-Your course folder is **`~/webdev`**: the `webdev` folder inside your Mac home folder.
+<details>
+<summary>What does this helper do? What if Claude Code is already installed?</summary>
 
-If you see **SETUP STOPPED**, follow [Setup Help](TROUBLESHOOTING.md). Fix the issue before rerunning Step 2.
+It prepares Claude Code, its command location, and **~/webdev**. It keeps a working installation and existing files. Run it once for this course even if Claude Code is already installed.
+
+If you already completed this course setup, go to Step 3.
+
+</details>
 
 ## Step 3 Connect and test
 
-If you have already completed the course setup, start here.
+### A. Open a fresh terminal in VS Code
 
-1. Save your work. Quit VS Code with **Command+Q** and close Terminal. Open VS Code again.
-2. Choose **File > Open Folder**. Browse to your **home folder** (the folder named after your Mac user account), select **webdev**, and click **Open**. If VS Code asks about trusting the folder, confirm only after checking that it is your own course folder.
-3. If VS Code restores an old terminal, close that terminal with its **trash can** button. Choose **Terminal > New Terminal**. Use **Zsh**, the standard Mac shell, or **Bash** if that is your usual Terminal shell.
-4. Run this command in that terminal.
+1. Save your work. Quit VS Code with **Command+Q**, close Terminal, and reopen VS Code.
+2. Choose **File → Open Folder → your home folder → webdev → Open**. Your home folder is named after your Mac user account. Confirm trust only for your own course folder.
+3. Close any restored terminal with its **trash can** button. Choose **Terminal → New Terminal**. Use **Zsh**, or your usual **Bash** shell.
+
+### B. Check Claude Code
+
+**VS Code terminal — paste and press Return:**
 
 ```bash
 claude --version
 ```
 
-**Check:** A version number followed by **Claude Code** appears. If you see **command not found**, use the quick fix below.
+> **CHECK — A version number and Claude Code appear. Continue to C.**
+>
+> Your version number may differ. You are not finished yet.
 
 <details>
-<summary>Quick fix: command not found</summary>
+<summary>Error: command not found</summary>
 
-After Step 2 shows **READY FOR STEP 3**, run these two lines in the same Zsh or Bash terminal. They add Claude's location to this terminal without reinstalling it.
+After Step 2 shows **READY FOR STEP 3**, run these lines in the same Zsh or Bash terminal:
 
 ```bash
 export PATH="$HOME/.local/bin:$PATH"
 claude --version
 ```
 
-If a Claude Code version appears, continue at item 5. If it still fails or returns in a new terminal, use [Mac command help](TROUBLESHOOTING.md#mac-command-help).
+If a Claude Code version appears, continue to C. If it still fails or happens again in a new terminal, use [Mac command help](TROUBLESHOOTING.md#mac-command-help).
 
 </details>
 
-5. Start Claude Code.
+### C. Start Claude and sign in
+
+**Same VS Code terminal — paste and press Return:**
 
 ```bash
 claude
 ```
 
-6. If asked to sign in, choose **Claude account with a subscription** and use the account you prepared. Complete browser sign-in and return to VS Code. If already signed in, continue. Confirm folder access only for your course folder.
-7. Send this in **Claude's message area**:
+Follow the prompts. Choose **Claude account with a subscription** if asked. Sign in with your prepared Claude account in the browser, then return to VS Code. Already signed in? Continue. Confirm folder access only for **webdev**.
+
+### D. Get a reply
+
+**Claude's message area in VS Code — paste and press Return:**
 
 ```text
 Please reply with Ready for ITM 325. Do not create, edit, or delete any files. Do not run any commands.
 ```
 
-**Done:** Claude replies inside VS Code. A version number alone does not confirm account access.
+> **DONE — Claude replies inside VS Code.**
+>
+> Look for **Ready for ITM 325**. Extra words are fine.  
+> **Stop here. Installation is complete.**
 
-To exit Claude, press **Control+C twice**. Use Control, not Command. Run ordinary terminal commands after leaving Claude, not in its message area.
+If Claude cannot reply, open [Setup Help](TROUBLESHOOTING.md).
+
+<details>
+<summary>How do I exit Claude?</summary>
+
+Press **Control+C twice**. Use Control, not Command. Run ordinary terminal commands after leaving Claude, not in its message area.
+
+</details>
 
 [Need help?](TROUBLESHOOTING.md) · [Back to start](README.md)

@@ -1,44 +1,35 @@
 # ITM 325 Setup
 
-Set up Claude Code inside Visual Studio Code. Follow the guide for your computer.
+**Your goal: Get a reply from Claude Code inside VS Code.**
 
-You do not need to sign in to GitHub now. You will connect it in the lesson on uploading your project.
+## Choose your computer
 
-| Your computer | Setup guide |
+| Windows PC | Mac |
 | --- | --- |
-| Windows PC | **[Windows setup](WINDOWS.md)** |
-| Mac | **[Mac setup](MAC.md)** |
+| **[Start Windows setup →](WINDOWS.md)** | **[Start Mac setup →](MAC.md)** |
 
-1. **Install VS Code.** Open the editor.
-2. **Run the setup helper.** Prepare the course tools and folder.
-3. **Connect and test.** Get a reply from Claude inside VS Code.
+Follow **one guide**, through **Step 3**.
 
-## Claude app and Claude Code
+| Step | What you do | What you check |
+| --- | --- | --- |
+| **1** | Install VS Code | VS Code opens |
+| **2** | Run the setup helper | **READY FOR STEP 3** appears |
+| **3** | Open Claude in VS Code and sign in | **Claude replies to your test message** |
 
-The **Claude app** is a desktop application. This course uses **Claude Code in the terminal**, started with the `claude` command inside VS Code. Having the Claude app does not confirm that the terminal tool is installed. Use `claude --version` to check for it.
-
-## Already installed?
-
-- **VS Code:** Open your existing copy and continue to Step 2.
-- **Claude Code:** Run Step 2 once for this course. The helper keeps working installations and prepares the course folder.
-- **Course setup already completed:** Go straight to Step 3. If Claude is already signed in, send the test message.
+**Stop after Step 3.** GitHub sign-in comes later, when you upload a project.
 
 ## Prepare your Claude account
 
-1. Sign in at [claude.ai](https://claude.ai/), or create an account.
-2. Confirm that your plan includes Claude Code: **Pro or higher**, or eligible school or organization access. The free Claude plan does not include Claude Code.
-3. Use that account in Step 3. If you need a subscription, check course-provided access first, then review the [current plans](https://claude.com/pricing).
+Sign in at [claude.ai](https://claude.ai/) using an account with **Claude Code access**, such as **Claude Pro** or eligible school access. Check course-provided access before purchasing a [plan](https://claude.com/pricing). Use this same account in Step 3.
 
-## How to follow the guides
+<details>
+<summary>Already have VS Code or the Claude app?</summary>
 
-Copy each full command using the code block's copy button. Paste it into the terminal named in your guide and press Enter or Return. If a step fails, open [Setup Help](TROUBLESHOOTING.md).
+- **VS Code:** Open your existing copy. No new download is needed.
+- **Claude app:** Having the desktop app does not confirm that the **Claude Code terminal command** is installed. Follow Step 2.
+- **Claude Code:** Step 2 keeps a working installation and prepares the course folder.
+- **Already completed this course setup:** Go to Step 3 in your computer's guide to check it.
 
-## What gets installed
+</details>
 
-- **VS Code:** The editor for your project files.
-- **Claude Code:** The AI coding tool used in the VS Code terminal.
-- **Git:** Installed on Windows for later course work.
-
-The helper keeps working installations and existing files in your `webdev` course folder.
-
-[Need help?](TROUBLESHOOTING.md) · [VS Code downloads](https://code.visualstudio.com/download) · [Claude Code setup](https://code.claude.com/docs/en/setup)
+[Need help?](TROUBLESHOOTING.md)
