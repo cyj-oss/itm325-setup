@@ -18,6 +18,15 @@ Have your [Claude account](README.md#prepare-your-claude-account) ready. **GitHu
 
 > **CHECK 1 — VS Code opens from Applications. Continue to Step 2.**
 
+<details>
+<summary>From Lesson 3.2 and only needed VS Code?</summary>
+
+Once VS Code opens, continue with the extensions in the book.
+
+[![Return to book — Lesson 3.2, Step 2](https://raw.githubusercontent.com/cyj-oss/itm325-vibecoding/main/return-to-book.svg)](https://cyj-oss.github.io/itm325-vibecoding/#lesson=3.2&step=1)
+
+</details>
+
 ## Step 2 Set up the course tools
 
 **Where: The Mac Terminal app**
@@ -102,6 +111,8 @@ Please reply with Ready for ITM 325. Do not create, edit, or delete any files. D
 >
 > Look for **Ready for ITM 325**. Extra words are fine.  
 > **Stop here. Installation is complete.**
+
+[![Return to book — Lesson 2.5, Step 1](https://raw.githubusercontent.com/cyj-oss/itm325-vibecoding/main/return-to-book.svg)](https://cyj-oss.github.io/itm325-vibecoding/#lesson=2.5&step=0)
 
 If Claude cannot reply, open [Setup Help](TROUBLESHOOTING.md).
 
