@@ -19,6 +19,15 @@ Have your [Claude account](README.md#prepare-your-claude-account) ready. **GitHu
 > **CHECK 1 — VS Code is open. Continue to Step 2.**
 
 <details>
+<summary>From Lesson 3.2 and only needed VS Code?</summary>
+
+Once VS Code opens, continue with the extensions in the book.
+
+[![Return to book — Lesson 3.2, Step 2](https://raw.githubusercontent.com/cyj-oss/itm325-vibecoding/main/return-to-book.svg)](https://cyj-oss.github.io/itm325-vibecoding/#lesson=3.2&step=1)
+
+</details>
+
+<details>
 <summary>Not sure which download or installer options to choose?</summary>
 
 Check **Windows Settings → System → About → System type** for x64 or ARM. Use the standard installation location. If a Copilot command option appears, choose **Don't add the copilot command**.
@@ -112,6 +121,8 @@ Please reply with Ready for ITM 325. Do not create, edit, or delete any files. D
 >
 > Look for **Ready for ITM 325**. Extra words are fine.  
 > **Stop here. Installation is complete.**
+
+[![Return to book — Lesson 2.5, Step 1](https://raw.githubusercontent.com/cyj-oss/itm325-vibecoding/main/return-to-book.svg)](https://cyj-oss.github.io/itm325-vibecoding/#lesson=2.5&step=0)
 
 If Claude cannot reply, open [Setup Help](TROUBLESHOOTING.md).
 
