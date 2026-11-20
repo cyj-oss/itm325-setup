@@ -29,10 +29,10 @@ Once VS Code opens, continue with the extensions in the book.
 
 ## Step 2 Set up the course tools
 
-**Where: The Mac Terminal app**
-
 1. Press **Command+Space**, type **Terminal**, and press **Return**.
 2. Paste this entire command into Terminal. Press **Return**.
+
+> **Where to paste:** **Mac Terminal app** · opened with Command+Space
 
 ```bash
 course_setup="$(/usr/bin/mktemp /tmp/itm325-setup.XXXXXX)" && /usr/bin/curl --fail --show-error --location --proto '=https' https://raw.githubusercontent.com/cyj-oss/itm325-setup/main/setup-mac.sh --output "$course_setup" && /bin/bash "$course_setup"
@@ -65,7 +65,9 @@ If you already completed this course setup, go to Step 3.
 
 ### B. Check Claude Code
 
-**VS Code terminal — paste and press Return:**
+Paste and press **Return**.
+
+> **Where to paste:** VS Code terminal · **Zsh or Bash**
 
 ```bash
 claude --version
@@ -78,7 +80,9 @@ claude --version
 <details>
 <summary>Error: command not found</summary>
 
-After Step 2 shows **READY FOR STEP 3**, run these lines in the same Zsh or Bash terminal:
+After Step 2 shows **READY FOR STEP 3**, copy both lines together and run them:
+
+> **Where to paste:** VS Code terminal · **Zsh or Bash**
 
 ```bash
 export PATH="$HOME/.local/bin:$PATH"
@@ -91,7 +95,9 @@ If a Claude Code version appears, continue to C. If it still fails or happens ag
 
 ### C. Start Claude and sign in
 
-**Same VS Code terminal — paste and press Return:**
+Paste and press **Return**.
+
+> **Where to paste:** VS Code terminal · **Zsh or Bash**
 
 ```bash
 claude
@@ -101,7 +107,9 @@ Follow the prompts. Choose **Claude account with a subscription** if asked. Sign
 
 ### D. Get a reply
 
-**Claude's message area in VS Code — paste and press Return:**
+Paste and press **Return** to send.
+
+> **Where to paste:** **Claude Code input** · in the VS Code terminal panel
 
 ```text
 Please reply with Ready for ITM 325. Do not create, edit, or delete any files. Do not run any commands.

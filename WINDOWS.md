@@ -36,10 +36,10 @@ Check **Windows Settings → System → About → System type** for x64 or ARM. 
 
 ## Step 2 Set up the course tools
 
-**Where: Windows PowerShell, opened from the Start menu**
-
 1. Search for **Windows PowerShell** and open it normally. Choose **without x86** and **without Run as administrator**. Use PowerShell, **not Command Prompt**.
 2. Paste this entire command into PowerShell. Press **Enter**.
+
+> **Where to paste:** **Windows PowerShell** · opened from the Start menu
 
 ```powershell
 & ([scriptblock]::Create((Invoke-RestMethod -Uri 'https://raw.githubusercontent.com/cyj-oss/itm325-setup/main/setup-windows.ps1')))
@@ -75,7 +75,9 @@ If you already completed this course setup, go to Step 3. If you used an older c
 
 ### B. Check Claude Code
 
-**VS Code PowerShell terminal — paste and press Enter:**
+Paste and press **Enter**.
+
+> **Where to paste:** VS Code terminal · **PowerShell**
 
 ```powershell
 claude --version
@@ -88,7 +90,9 @@ claude --version
 <details>
 <summary>Error: claude is not recognized</summary>
 
-After Step 2 shows **READY FOR STEP 3**, run these lines in the same PowerShell terminal:
+After Step 2 shows **READY FOR STEP 3**, copy both lines together and run them:
+
+> **Where to paste:** VS Code terminal · **PowerShell**
 
 ```powershell
 $env:Path = "$env:USERPROFILE\.local\bin;" + $env:Path
@@ -101,7 +105,9 @@ If a Claude Code version appears, continue to C. If it still fails or happens ag
 
 ### C. Start Claude and sign in
 
-**Same VS Code PowerShell terminal — paste and press Enter:**
+Paste and press **Enter**.
+
+> **Where to paste:** VS Code terminal · **PowerShell**
 
 ```powershell
 claude
@@ -111,7 +117,9 @@ Follow the prompts. Choose **Claude account with a subscription** if asked. Sign
 
 ### D. Get a reply
 
-**Claude's message area in VS Code — paste and press Enter:**
+Paste and press **Enter** to send.
+
+> **Where to paste:** **Claude Code input** · in the VS Code terminal panel
 
 ```text
 Please reply with Ready for ITM 325. Do not create, edit, or delete any files. Do not run any commands.

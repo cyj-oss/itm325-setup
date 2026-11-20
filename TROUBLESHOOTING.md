@@ -29,7 +29,9 @@ If the Step 3 quick fix does not solve the problem, check the installation direc
 
 ### Windows command help
 
-In the VS Code **PowerShell** terminal, run:
+Run this check:
+
+> **Where to paste:** VS Code terminal · **PowerShell**
 
 ```powershell
 & "$env:USERPROFILE\.local\bin\claude.exe" --version
@@ -41,7 +43,9 @@ If the direct command fails, send its exact error to your instructor before rein
 
 ### Mac command help
 
-In the VS Code **Zsh or Bash** terminal, run:
+Run this check:
+
+> **Where to paste:** VS Code terminal · **Zsh or Bash**
 
 ```bash
 "$HOME/.local/bin/claude" --version
@@ -64,6 +68,8 @@ Use this route if the helper cannot install Git. Complete VS Code Step 1 first.
 7. Finish installation and open a new normal PowerShell window.
 8. Run:
 
+> **Where to paste:** **Windows PowerShell** · opened from the Start menu
+
 ```powershell
 git --version
 ```
@@ -72,7 +78,9 @@ If **git version** appears, rerun [Windows Step 2](WINDOWS.md#step-2-set-up-the-
 
 ## What to send your instructor
 
-Use the course help channel.
+Copy this template, fill in your details, and send it through the course help channel.
+
+> **Where to paste:** **Course help channel** · message to your instructor
 
 ```text
 My computer: Windows or Mac
